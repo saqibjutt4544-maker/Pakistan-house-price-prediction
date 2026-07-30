@@ -14,7 +14,7 @@ This project covers the full pipeline from raw data to a deployed prediction too
 
 ## Dataset
 
-[Pakistan House Price Dataset](https://www.kaggle.com/datasets/jillanisofttech/pakistan-house-price-dataset) (Zameen.com listings), via Kaggle. ~168K property listings across 5 Pakistani cities. Not included in this repo due to size — download `zameen-updated.csv` from the link above and place it in `data/`.
+[Pakistan House Price Dataset (Zameen.com listings)](https://www.kaggle.com/), via Kaggle. ~168K property listings across 5 Pakistani cities. Not included in this repo due to size — download `zameen-updated.csv` from the link above and place it in `data/`.
 
 ## Key Findings
 
@@ -27,7 +27,7 @@ This project covers the full pipeline from raw data to a deployed prediction too
 
 | Model | MAE (PKR) | RMSE (PKR) | R² |
 |---|---|---|---|
-| **Random Forest** | 3,253,167 | 7,330,911 | **0.911** |
+| Random Forest | 3,253,167 | 7,330,911 | 0.911 |
 | XGBoost | 3,562,537 | 7,632,087 | 0.904 |
 | Linear Regression | 9,349,664 | 25,670,662 | -0.090 |
 
@@ -37,12 +37,14 @@ Random Forest performed best. Linear Regression underperforms because house pric
 
 ```
 pakistan-house-price-prediction/
-├── notebooks/
+├── house prediction/
 │   ├── 01_eda.ipynb              # Exploratory data analysis
 │   ├── 02_preprocessing.ipynb    # Cleaning & feature engineering
 │   ├── 03_modeling.ipynb         # Model training & comparison
-│   └── 04_predictions.ipynb      # Visual evaluation of predictions
-├── webapp/
+│   ├── 04_predictions.ipynb      # Visual evaluation of predictions
+│   ├── model_comparison.csv      # Saved model evaluation results
+│   └── price prediction.py       # Quick script to load and preview the raw dataset
+├── house price web app/
 │   ├── app.py                    # Streamlit application
 │   ├── requirements.txt
 │   ├── README.md                 # Web app specific setup instructions
@@ -52,20 +54,23 @@ pakistan-house-price-prediction/
 
 ## Running the Notebooks
 
-```bash
-pip install -r notebooks_requirements.txt   # or install pandas, numpy, scikit-learn, xgboost, matplotlib, seaborn, jupyter
-jupyter notebook notebooks/01_eda.ipynb
 ```
+pip install -r notebooks_requirements.txt   # or install pandas, numpy, scikit-learn, xgboost, matplotlib, seaborn, jupyter
+jupyter notebook "house prediction/01_eda.ipynb"
+```
+
 Run notebooks in order (01 → 04); each one saves outputs used by the next.
 
 ## Running the Web App
 
-```bash
-cd webapp
+```
+cd "house price web app"
 pip install -r requirements.txt
 streamlit run app.py
 ```
+
 Then open the printed `localhost:8501` link. The app has two pages:
+
 - **Predict a Price** — enter property details and get a live price estimate.
 - **Model Insights** — model comparison table and evaluation visualizations.
 
